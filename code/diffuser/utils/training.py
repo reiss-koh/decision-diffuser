@@ -203,6 +203,10 @@ class Trainer(object):
         normed_observations = trajectories[:, :, self.dataset.action_dim:]
         observations = self.dataset.normalizer.unnormalize(normed_observations, 'observations')
 
+        savepath = os.path.join('images', f'sample-reference.png')
+        self.renderer.composite(savepath, observations)
+
+        # should be above savepath = os.path.join
         # from diffusion.datasets.preprocessing import blocks_cumsum_quat
         # # observations = conditions + blocks_cumsum_quat(deltas)
         # observations = conditions + deltas.cumsum(axis=1)
@@ -211,9 +215,6 @@ class Trainer(object):
         # from diffusion.datasets.preprocessing import blocks_euler_to_quat, blocks_add_kuka
         # observations = blocks_add_kuka(observations)
         ####
-
-        savepath = os.path.join('images', f'sample-reference.png')
-        self.renderer.composite(savepath, observations)
 
     def render_samples(self, batch_size=2, n_samples=2):
         '''
